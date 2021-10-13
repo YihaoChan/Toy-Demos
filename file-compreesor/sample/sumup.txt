@@ -1,0 +1,23 @@
+abbcccdddd
+aaaaaaabbbbbccdddd
+This is the eleventh line.
+This is the twelfth line.
+This is the thirteenth line.
+This is the fourteenth line.
+This is the fifteenth line.
+This is the sixteenth line.
+This is the seventeenth line.
+This is the eighteenth line.
+This is the nineteenth line.
+This is the twentieth line.
+12345678910
+11121314151617181920
+21222324252627282930
+:
+""
+.
+?
+{
+}
+~!@#$%^&*()
+一一一一一一一二二二二二三三四四四四
