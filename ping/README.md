@@ -72,7 +72,7 @@ IP、ICMP、UDP和TCP报文头都有检验和字段，大小都是16bit，算法
 
 因为用到**原始套接字**，所以要加上sudo：
 
-```sh
+```shell
 make
 sudo ./ping [hostname/IP Address]
 make clean
