@@ -18,6 +18,8 @@ ICMP查询请求和应答消息格式ICMP回应请求(echo-request：类型8编�
 
 ICMP不是高层协议，而是IP层的协议，因为**ICMP报文是IP数据包的数据部分**，承载在IP分组中作为IP的有效载荷。当一台主机收到一个指明上层协议为ICMP的IP数据报时，它分解出该数据报的内容**给ICMP**。
 
+![IP&ICMP](images/IP&ICMP.jpg)
+
 因此，要实现简易的ping命令，大致的内部执行过程为：
 
 1. 在本地，将ICMP协议报文进行封装；
