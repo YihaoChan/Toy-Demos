@@ -12,7 +12,7 @@ all: $(target)
 FORCE:
 
 $(target): $(headers) FORCE
-	$(CXX) $(srcs) -o $@
+	$(CXX) $(srcs) -o $@ -g
 
 clean:
 	rm -f $(target)

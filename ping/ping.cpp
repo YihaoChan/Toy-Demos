@@ -20,6 +20,7 @@ void send_icmp_request() {
     icmp_hdr->icmp_seq = sent_num++;
     icmp_hdr->icmp_checksum = 0; // 校验和置零
     memset(icmp_hdr->icmp_data, 0, sizeof(icmp_hdr->icmp_data));
+    // 发送端发送数据的时间
     gettimeofday((struct timeval *) icmp_hdr->icmp_timestamp, nullptr);
 
     /**
@@ -66,15 +67,15 @@ int parse_ip_reply(char (&recv_buffer)[BUFFER_SIZE]) {
         return -1;
     }
 
-    // 发送响应包时的时间
-    struct timeval *send_reply_time = (struct timeval *) icmp_hdr->icmp_timestamp;
+    // 发送请求包时的时间
+    struct timeval *send_request_time = (struct timeval *) icmp_hdr->icmp_timestamp;
     // 收到响应包时的时间
     struct timeval recv_reply_time;
     gettimeofday(&recv_reply_time, nullptr);
 
-    // 往返时间
-    double rtt = ((&recv_reply_time)->tv_sec - send_reply_time->tv_sec) * 1000 +
-                 ((&recv_reply_time)->tv_usec - send_reply_time->tv_usec) / 1000.0;
+    // RTT(Round-Trip Time): 往返时延，表示从发送端发送数据开始，到发送端收到来自接收端的确认总共经历的时延
+    double rtt = ((&recv_reply_time)->tv_sec - send_request_time->tv_sec) * 1000 +
+                 ((&recv_reply_time)->tv_usec - send_request_time->tv_usec) / 1000.0;
 
     printf("%d bytes from %s: icmp_seq=%u ttl=%d rtt=%.1f ms\n",
            icmp_len,

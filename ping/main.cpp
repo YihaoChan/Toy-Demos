@@ -53,5 +53,5 @@ int main(int argc, char **argv) {
 }
 
 void usage() {
-    printf("[USAGE] sudo ./main [hostname/IP Address]\n");
+    printf("[USAGE] sudo ./ping [hostname/IP Address]\n");
 }
