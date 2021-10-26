@@ -15,7 +15,7 @@ static int m_recv_num = 0; // 接收到的报文数量
 
 Ping *Ping::instance = nullptr;
 
-Ping::Ping(const char *hostname) : m_hostname(hostname){}
+Ping::Ping(const char *hostname) : m_hostname(hostname) {}
 
 void Ping::run() {
     // 用于转换static处理函数的静态实例
@@ -221,13 +221,13 @@ void Ping::end() {
 
 // 注册信号处理函数
 void Ping::set_sighandler() {
-    m_act_alarm.sa_handler = Ping::alarm_handler;
+    m_act_alarm.sa_handler = Ping::alarm_handler_static; // 静态函数
     if (-1 == sigaction(SIGALRM, &m_act_alarm, nullptr)) {
         printf("SIGALRM handler setting fails.\n");
         exit(1);
     }
 
-    m_act_int.sa_handler = Ping::int_handler;
+    m_act_int.sa_handler = Ping::int_handler_static; // 静态函数
     if (-1 == sigaction(SIGINT, &m_act_int, nullptr)) {
         printf("SIGINT handler setting fails.\n");
         exit(1);
@@ -248,12 +248,12 @@ void Ping::alarm_signal_handler(int signo) {
     send_icmp_request();
 }
 
-// 信号处理函数只能是静态函数，因此，要用instance帮助"包装"，具体见参考资料第5点
-void Ping::int_handler(int signo) {
+// 信号处理函数不能是带this指针的成员函数，因此要用静态函数，故采用instance帮助"包装"，具体见参考资料第5点
+void Ping::int_handler_static(int signo) {
     instance->int_signal_handler(signo);
 }
 
-void Ping::alarm_handler(int signo) {
+void Ping::alarm_handler_static(int signo) {
     instance->alarm_signal_handler(signo);
 }
 

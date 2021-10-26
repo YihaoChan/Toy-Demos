@@ -122,8 +122,8 @@ private:
 
     // 用于包装信号处理函数，转换为static
     static Ping *instance;
-    static void int_handler(int signo);
-    static void alarm_handler(int signo);
+    static void int_handler_static(int signo);
+    static void alarm_handler_static(int signo);
 };
 
 void usage();
