@@ -13,16 +13,9 @@ static int m_sent_num = 0; // 发送的报文数量
 static int m_recv_num = 0; // 接收到的报文数量
 /*******************************************************************/
 
-Ping *Ping::instance = nullptr;
-
 Ping::Ping(const char *hostname) : m_hostname(hostname) {}
 
 void Ping::run() {
-    // 用于转换static处理函数的静态实例
-    if (nullptr == instance) {
-        instance = new Ping(m_hostname);
-    }
-
     struct hostent *host;
     if (nullptr == (host = gethostbyname(m_hostname))) {
         printf("hostname error.\n");
@@ -248,13 +241,43 @@ void Ping::alarm_signal_handler(int signo) {
     send_icmp_request();
 }
 
-// 信号处理函数不能是带this指针的成员函数，因此要用静态函数，故采用instance帮助"包装"，具体见参考资料第5点
+/*********************************************************************************************
+ * 一个静态方法根本不可能【直接】访问非静态方法，即普通的sortPerThread()，需要用间接的形式
+ *
+ * e.g. (1)
+ * The only way to access non-static elements in a static member function
+ * is to tell the function [which object] it has to use for getting access non-static function.
+ * class MyClass {
+ *     bool eventActive = false;
+ *     static bool JoinCommand(MyClass *object) {
+ *         // No error, since we are referencing through an object.
+ *         if (object->eventActive) {
+ *             // do something here...
+ *         }
+ *     }
+ *  };
+ *
+ *  e.g. (2)
+ *  Let the static function give you a [pointer] to the class instance:
+ *  class OfApp {
+ *  void update(); //non Static Function
+ *  static void staticFunction(void * userData) {
+ *      auto app = (OfApp*)userData;
+ *      app->update();
+ *  }
+ *
+ *  简而言之，就是在静态方法中，用类的【对象指针】去访问非静态成员方法
+ *  所以，下面的调用还可以这样写：
+ *  Ping *p = nullptr;
+ *  m->int_signal_handler();
+ *********************************************************************************************
+ */
 void Ping::int_handler_static(int signo) {
-    instance->int_signal_handler(signo);
+    static_cast<Ping*>(nullptr)->int_signal_handler(signo);
 }
 
 void Ping::alarm_handler_static(int signo) {
-    instance->alarm_signal_handler(signo);
+    static_cast<Ping*>(nullptr)->alarm_signal_handler(signo);
 }
 
 Ping::~Ping() {

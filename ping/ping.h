@@ -120,8 +120,6 @@ private:
     // SIGALRM
     void alarm_signal_handler(int signo);
 
-    // 用于包装信号处理函数，转换为static
-    static Ping *instance;
     static void int_handler_static(int signo);
     static void alarm_handler_static(int signo);
 };

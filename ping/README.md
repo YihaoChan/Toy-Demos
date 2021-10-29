@@ -104,3 +104,6 @@ make clean
 3. [大小端模式](https://baike.baidu.com/item/%E5%A4%A7%E5%B0%8F%E7%AB%AF%E6%A8%A1%E5%BC%8F/6750542?fr=aladdin)
 4. [标准套接字和原始套接字](https://www.cnblogs.com/wanghao-boke/p/11655015.html)
 5. [在类中使用信号处理函数](https://stackoverflow.com/questions/343219/is-it-possible-to-use-signal-inside-a-c-class)
+
+6. [使用成员方法作为回调函数](https://blog.csdn.net/u014571011/article/details/76283676)
+
