@@ -140,7 +140,7 @@ void *MultiThreadGroup::threadFunc(void *args) {
         return nullptr;
     }
 
-    /**
+    /*********************************************************************************************
      * 一个静态方法根本不可能【直接】访问非静态方法，即普通的sortPerThread()，需要用间接的形式
      *
      * e.g. (1)
@@ -169,6 +169,7 @@ void *MultiThreadGroup::threadFunc(void *args) {
      *  所以，下面的调用还可以这样写：
      *  MultiThreadGroup *m = nullptr;
      *  m->sortPerThread();
+     *********************************************************************************************
      */
     static_cast<MultiThreadGroup *>(nullptr)->sortPerThread((Args *) args);
     return nullptr;
