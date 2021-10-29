@@ -33,6 +33,7 @@ int main() {
     Barrier barrier(threadNum + 1);
     vector<thread> threads(threadNum);
     MultiThreadGroup multiThreadGroup(nums, barrier, threads);
+    threadNum = multiThreadGroup.getThreadNum(); // 线程不能太多，需要调整线程个数
 
     multiThreadGroup.group(); // 多个线程分别从小到大排序，实现分组
 
