@@ -53,3 +53,6 @@ cd ..
 3. [C++11多线程std::thread的简单使用](https://www.cnblogs.com/lifan3a/articles/7538472.html)
 
 4. [C++多线程并发---线程同步之条件变量](https://blog.csdn.net/m0_37621078/article/details/89766449)
+
+5. [Linux下CMake教程](https://blog.csdn.net/whahu1989/article/details/82078563)
+
