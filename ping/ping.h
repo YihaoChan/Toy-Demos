@@ -33,15 +33,13 @@ typedef unsigned int u32;
 
 class Ping {
 public:
-    Ping(const char *hostname);
+    explicit Ping(const char *hostname_);
 
     void run();
 
     ~Ping();
 
 private:
-    const char *m_hostname; // 域名
-
     // IP报文头部
     struct ip_header {
 #if defined _LITTLE_ENDIAN_BITFIELD
@@ -106,7 +104,7 @@ private:
     u16 compute_checksum(u8 *buffer, int len);
 
     // 统计ping命令的检测结果
-    void get_statistics(const int n_sent, const int n_recv);
+    void get_statistics();
 
     // 结束
     void end();
