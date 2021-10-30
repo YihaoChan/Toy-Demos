@@ -7,7 +7,7 @@ target = main
 srcs = $(wildcard *.cpp)
 headers = $(wildcard *.h)
 
-.PHONY: all
+.PHONY: all 
 all: $(target)
 
 .PHONY: FORCE
