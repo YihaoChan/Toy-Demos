@@ -1,7 +1,7 @@
 #include "multithread_group.h"
 
-pthread_barrier_t barrier;
-pthread_mutex_t mutex;
+pthread_barrier_t barrier; // 有多个文件用到这个变量，所以不能用static限定文件域
+static pthread_mutex_t mutex;
 
 MultiThreadGroup::MultiThreadGroup(vector<int> &nums, vector<pthread_t> &threads) :
         m_nums(nums),
